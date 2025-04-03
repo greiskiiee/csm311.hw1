@@ -19,4 +19,12 @@ public class Flashcard {
     public String getAnswer() {
         return answer;
     }
+
+    public int getMistakes() {
+        return mistakes;
+    }
+
+    public void incrementMistakes() {
+        this.mistakes++;
+    }
 }
