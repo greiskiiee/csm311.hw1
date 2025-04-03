@@ -21,6 +21,10 @@ public class Deck {
         flashcards.add(flashcard);
     }
 
+    public void deleteFlashcard(int idx) {
+        flashcards.remove(idx);
+    }
+
     public List<Flashcard> getFlashcards() {
         return flashcards;
     }
@@ -28,4 +32,14 @@ public class Deck {
     public boolean hasFlashcards() {
         return !flashcards.isEmpty();
     }
+
+    public int getSize() {
+        return flashcards.size();
+    }
+
+    public void editFlashcard(int idx, String newQuestion, String newAnswer) {
+        flashcards.get(idx).question = newQuestion;
+        flashcards.get(idx).answer = newAnswer;
+    }
+
 }
