@@ -46,18 +46,22 @@ public class Main {
         scanner.nextLine();
         String deckName = scanner.nextLine();
 
+        //todo: ner hooson esehiig shalga
+        //
         Deck newDeck = new Deck(deckName);
         decks.add(newDeck);
         System.out.println("New deck '" + deckName + "' created!\n");
 
+        //todo: flashcard nemeh esehiig asuuh
+        //
         while (true) {
-            System.out.println("Enter the question for the flashcard (or 'done' to stop):");
+            System.out.print("Enter the question for the flashcard (or 'done' to stop): ");
             String question = scanner.nextLine();
             if ("done".equals(question)) {
                 break;
             }
 
-            System.out.println("Enter the answer for the flashcard:");
+            System.out.print("Enter the answer for the flashcard: ");
             String answer = scanner.nextLine();
 
             Flashcard flashcard = new Flashcard(question, answer);
@@ -72,6 +76,47 @@ public class Main {
             return;
         }
 
+        System.out.println("Select the deck to study: ");
+        for (int i = 0; i < decks.size(); i++) {
+            System.out.println((i + 1) + ". " + decks.get(i).getDeckName());
+        }
+        int deckToStudy = scanner.nextInt();
+        scanner.nextLine();
+
+        if (deckToStudy >= 1 && deckToStudy <= decks.size()) {
+            Deck selectedDeck = decks.get(deckToStudy - 1);
+
+            if (selectedDeck.hasFlashcards()) {
+                studyDeck(selectedDeck);
+            } else {
+                System.out.println("This deck has no flashcard");
+            }
+        } else {
+            System.out.println("Invalid choice! Please enter from 1-" + decks.size());
+        }
+
+    }
+
+    private static void studyDeck(Deck deck) {
+        System.out.println("Selected '" + deck.getDeckName() + "'");
+
+        int i = 1;
+
+        for (Flashcard flashcard : deck.getFlashcards()) {
+            System.out.println("Card " + i + "-> " + flashcard.getQuestion());
+            System.out.print("Your answer: ");
+            String myAnswer = scanner.nextLine();
+            System.out.println("Press Enter to see the result.");
+            scanner.nextLine();
+
+            if (myAnswer.equals(flashcard.getAnswer())) {
+                System.out.println("[^_-] Correct");
+            } else {
+                System.out.println("[X_X] Incorrect. Answer was '" + flashcard.getAnswer() + "'");
+            }
+            System.out.println("-----------");
+            i++;
+        }
     }
 
 }
