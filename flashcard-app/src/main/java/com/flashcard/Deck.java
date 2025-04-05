@@ -37,9 +37,10 @@ public class Deck {
         return flashcards.size();
     }
 
-    public void editFlashcard(int idx, String newQuestion, String newAnswer) {
+    public void editFlashcard(int idx, String newQuestion, String newAnswer, String newHelp) {
         flashcards.get(idx).question = newQuestion;
         flashcards.get(idx).answer = newAnswer;
+        flashcards.get(idx).help = newHelp;
     }
 
 }
