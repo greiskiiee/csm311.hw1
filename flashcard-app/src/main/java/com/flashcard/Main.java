@@ -45,6 +45,7 @@ public class Main {
     private static void edit() {
 
         while (true) {
+            //delete a deck
             System.out.println("1. Create a new deck");
             System.out.println("2. Edit deck");
             System.out.println("0. Back");
@@ -158,7 +159,7 @@ public class Main {
         int i;
         for (i = 0; i < deck.getSize(); i++) {
             Flashcard flashcard = deck.getFlashcards().get(i);
-            System.out.println("Card " + (i + 1) + "-> " + flashcard.getQuestion());
+            System.out.println("Card " + (i + 1) + "-> Q: " + flashcard.getQuestion());
 
             boolean answeredCorrectly = false;
 
@@ -171,8 +172,7 @@ public class Main {
                     answeredCorrectly = true;
                     break;
                 } else {
-                    System.out.println("[X_X] Incorrect.");
-                    System.out.print("Would you like help (y/n) ? ");
+                    System.out.println("[X_X] Incorrect. Would you like help (y/n) ? ");
                     String help = scanner.nextLine().trim().toLowerCase();
 
                     if (help.equals("y")) {
