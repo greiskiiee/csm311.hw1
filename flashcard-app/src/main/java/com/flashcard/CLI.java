@@ -33,6 +33,7 @@ public class CLI {
     public static void printEditMenu() {
         System.out.println("1. Create a new deck");
         System.out.println("2. Edit deck");
+        System.out.println("3. Delete deck");
         System.out.println("0. Back");
         System.out.print(ANSI_BLUE + "Your choice : " + ANSI_RESET);
     }
