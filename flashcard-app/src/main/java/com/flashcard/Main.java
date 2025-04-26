@@ -10,18 +10,24 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static RecentMistakesFirstSorter sorting;
 
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+
     public static void main(String[] args) {
-        System.out.println("\n*******************************");
-        System.out.println(" Welcome to Flashcards CLI! ^_^");
-        System.out.println("*******************************\n");
+        System.out.println(ANSI_YELLOW + "\n*******************************");
+        System.out.println(ANSI_YELLOW + " Welcome to Flashcards CLI! ^_^");
+        System.out.println(ANSI_YELLOW + "*******************************\n" + ANSI_RESET);
 
         boolean running = true;
         while (running) {
-            System.out.println("What do you want to do?");
+            System.out.println(ANSI_BLUE + "What do you want to do?" + ANSI_RESET);
             System.out.println("1. Study");
             System.out.println("2. Edit");
             System.out.println("3. Quit");
-            System.out.print("Your choice : ");
+            System.out.print(ANSI_BLUE + "Your choice : " + ANSI_RESET);
 
             int choice = scanner.nextInt();
 
@@ -33,11 +39,11 @@ public class Main {
                     edit();
                     break;
                 case 3:
-                    System.out.println("Goodbye! :(");
+                    System.out.println(ANSI_YELLOW + "Goodbye! :(" + ANSI_RESET);
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter from 1-3");
+                    System.out.println(ANSI_RED + "Invalid choice. Please enter from 1-3" + ANSI_RESET);
             }
         }
     }
@@ -49,7 +55,7 @@ public class Main {
             System.out.println("1. Create a new deck");
             System.out.println("2. Edit deck");
             System.out.println("0. Back");
-            System.out.print("Your choice : ");
+            System.out.print(ANSI_BLUE + "Your choice : " + ANSI_RESET);
             int editChoice = scanner.nextInt();
             scanner.nextLine();
             Deck newDeck;
@@ -64,7 +70,7 @@ public class Main {
                     } else {
                         newDeck = new Deck(deckName);
                         decks.add(newDeck);
-                        System.out.println("\tNew deck '" + deckName + "' created!\n");
+                        System.out.println(ANSI_BLUE + "\tNew deck '" + deckName + "' created!\n" + ANSI_RESET);
                     }
 
                     break;
@@ -72,11 +78,11 @@ public class Main {
                 //2. Edit deck
                 case 2:
                     if (decks.isEmpty()) {
-                        System.out.println("\tYou have no decks available. Please create a new deck.");
+                        System.out.println(ANSI_BLUE + "\tYou have no decks available. Please create a new deck." + ANSI_RESET);
                         return;
                     }
 
-                    System.out.println("Select the deck to edit: ");
+                    System.out.println(ANSI_BLUE + "Select the deck to edit: " + ANSI_RESET);
                     for (int i = 0; i < decks.size(); i++) {
                         System.out.println((i + 1) + ". " + decks.get(i).getDeckName());
                     }
@@ -87,14 +93,14 @@ public class Main {
                         Deck selectedDeck = decks.get(deckToStudy - 1);
                         editDeck(selectedDeck);
                     } else {
-                        System.out.println("Invalid choice! Please enter from 1-" + decks.size());
+                        System.out.println(ANSI_RED + "Invalid choice! Please enter from 1-" + decks.size() + ANSI_RESET);
                     }
                     break;
 
                 case 0:
                     return;
                 default:
-                    System.out.println("Invalid choice");
+                    System.out.println(ANSI_RED + "Invalid choice" + ANSI_RESET);
 
             }
         }
@@ -103,7 +109,7 @@ public class Main {
 
     private static void study() {
         if (decks.isEmpty()) {
-            System.out.println("\tYou have no decks available. Please create a new deck.");
+            System.out.println(ANSI_BLUE + "\tYou have no decks available. Please create a new deck." + ANSI_RESET);
             return;
         }
 
@@ -113,7 +119,7 @@ public class Main {
             System.out.println((i + 1) + ". " + decks.get(i).getDeckName());
         }
 
-        System.out.print("Your choice: ");
+        System.out.print(ANSI_BLUE + "Your choice: " + ANSI_RESET);
         int deckToStudy = scanner.nextInt();
         scanner.nextLine();
 
@@ -126,13 +132,13 @@ public class Main {
                 System.out.println("This deck has no flashcard");
             }
         } else {
-            System.out.println("Invalid choice! Please enter from 1-" + decks.size());
+            System.out.println(ANSI_RED + "Invalid choice! Please enter from 1-" + decks.size() + ANSI_RESET);
         }
 
     }
 
     private static void studyDeck(Deck deck) {
-        System.out.println("Selected '" + deck.getDeckName() + "'");
+        System.out.println(ANSI_BLUE + "Selected '" + deck.getDeckName() + "'" + ANSI_RESET);
 
         int repetition = 1;
 
@@ -149,10 +155,10 @@ public class Main {
                     repetition = value;
                     break;
                 } else {
-                    System.out.print("Please enter a number from 1-3: ");
+                    System.out.print(ANSI_RED + "Please enter a number from 1-3: " + ANSI_RESET);
                 }
             } catch (NumberFormatException e) {
-                System.out.print("Please enter a number from 1-3: ");
+                System.out.print(ANSI_RED + "Please enter a number from 1-3: " + ANSI_RESET);
             }
         }
 
@@ -168,11 +174,11 @@ public class Main {
                 String myAnswer = scanner.nextLine();
 
                 if (myAnswer.equals(flashcard.getAnswer())) {
-                    System.out.println("[^_-] Correct");
+                    System.out.println(ANSI_GREEN + "[^_-] Correct" + ANSI_RESET);
                     answeredCorrectly = true;
                     break;
                 } else {
-                    System.out.println("[X_X] Incorrect. Would you like help (y/n) ? ");
+                    System.out.println(ANSI_RED + "[X_X] Incorrect. Would you like help (y/n) ? " + ANSI_RESET);
                     String help = scanner.nextLine().trim().toLowerCase();
 
                     if (help.equals("y")) {
@@ -217,7 +223,7 @@ public class Main {
             System.out.println("2. Edit a flashcard");
             System.out.println("3. Delete a flashcard");
             System.out.println("0. Back");
-            System.out.print("Your choice : ");
+            System.out.print(ANSI_BLUE + "Your choice : " + ANSI_RESET);
             int secondChoice = scanner.nextInt();
             scanner.nextLine();
 
@@ -234,7 +240,7 @@ public class Main {
 
                     Flashcard flashcard = new Flashcard(question, answer, help);
                     deck.addFlashcard(flashcard);
-                    System.out.println("\tFlashcard added to '" + deck.getDeckName() + "' !");
+                    System.out.println(ANSI_BLUE + "\tFlashcard added to '" + deck.getDeckName() + "' !" + ANSI_RESET);
                     flaschcardCount++;
                     break;
                 case 2:
@@ -269,12 +275,9 @@ public class Main {
                 case 0:
                     return;
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println(ANSI_RED + "Invalid choice!" + ANSI_RESET);
 
             }
-
         }
-
     }
-
 }
