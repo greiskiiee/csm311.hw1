@@ -70,10 +70,16 @@ public class StudyDeck {
             }
         }
 
+        for (Flashcard flashcard : deck.getFlashcards()) {
+            flashcard.initializeMistakes(repetition);
+        }
+
         int i;
         for (i = 0; i < deck.getSize(); i++) {
             Flashcard flashcard = deck.getFlashcards().get(i);
             System.out.println("Card " + (i + 1) + "-> Q: " + flashcard.getQuestion());
+
+            boolean answeredCorrectly = false;
             int r;
             for (r = 0; r < repetition; r++) {
                 System.out.print("Your answer: ");
@@ -82,6 +88,7 @@ public class StudyDeck {
                 if (myAnswer.equals(flashcard.getAnswer())) {
                     System.out.println(CLI.ANSI_GREEN + "[^_-] Correct" + CLI.ANSI_RESET);
                     flashcard.markMistake(r, false);
+                    answeredCorrectly = true;
                     break;
                 } else {
                     System.out.println(CLI.ANSI_RED + "[X_X] Incorrect. Would you like help (y/n) ? " + CLI.ANSI_RESET);
@@ -95,9 +102,14 @@ public class StudyDeck {
                         continue;
                     }
                     flashcard.markMistake(r, true);;
-                    r--;
+
                 }
             }
+            if (!answeredCorrectly) {
+                System.out.println(CLI.ANSI_RED + "[X_X] You didn't get the answer right after " + repetition + " attempts." + CLI.ANSI_RESET);
+                System.out.println("Correct answer: " + flashcard.getAnswer());
+            }
+
             System.out.println("-----------");
 
         }
