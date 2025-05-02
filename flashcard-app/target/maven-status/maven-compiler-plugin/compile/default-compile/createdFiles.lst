@@ -1,0 +1,7 @@
+com\flashcard\DeckEditor.class
+com\flashcard\StudyDeck.class
+com\flashcard\CLI.class
+com\flashcard\Deck.class
+com\flashcard\Main.class
+com\flashcard\Flashcard.class
+com\flashcard\CardOrganizer.class

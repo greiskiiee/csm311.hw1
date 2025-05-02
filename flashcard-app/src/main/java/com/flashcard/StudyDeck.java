@@ -5,17 +5,16 @@ import java.util.Scanner;
 
 public class StudyDeck {
 
-    private static List<Deck> decks;
-    ;
-    private static Scanner scanner = new Scanner(System.in);
-    private static CardOrganizer cardOrganizer;
+    private List<Deck> decks;
+    private Scanner scanner = new Scanner(System.in);
+    private CardOrganizer cardOrganizer;
 
     public StudyDeck(List<Deck> decks, Scanner scanner) {
         this.decks = decks;
         this.scanner = scanner;
     }
 
-    public static void study() {
+    public void study() {
         if (decks.isEmpty()) {
             System.out.println(CLI.ANSI_RED + "\tYou have no decks available. Please create a new deck." + CLI.ANSI_RESET);
             return;
@@ -45,7 +44,7 @@ public class StudyDeck {
 
     }
 
-    private static void studyDeck(Deck deck) {
+    private void studyDeck(Deck deck) {
         System.out.println(CLI.ANSI_BLUE + "Selected '" + deck.getDeckName() + "'" + CLI.ANSI_RESET);
 
         int repetition = 1;
@@ -98,6 +97,7 @@ public class StudyDeck {
                         System.out.println("Help --> " + flashcard.getHelp());
                     } else if (!help.equals("n")) {
                         System.out.print("Please enter 'y' or 'n': ");
+                        System.out.print("\n");
                         r--;
                         continue;
                     }
@@ -116,4 +116,5 @@ public class StudyDeck {
         cardOrganizer.sortingDeck(deck);
 
     }
+
 }
